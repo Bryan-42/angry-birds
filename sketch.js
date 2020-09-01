@@ -92,34 +92,17 @@ function keyPressed(){
     }
 }
 //async function getBackgroundImg(){
-  //  var respones = await fetch("http://worldtimeapi.org/api/timezone/Asia/Tokyo");
-    //var reponesJson = await respones.json();
-    //var datetime = reponesJson.datetime;
-    //var time = datetime.slice(11,13);
-    //console.log(time);
-    //if (time >= 06 && time <= 19){
-      //  bg = "sprites/bg.png";
-    //}
-    //else{
-      //  bg = "sprites/bg2.jpg";
-    //}
-    //backgroundImg = loadImage(bg);
-    //console.log(backgroundImg);
-//}
-async function getBackgroundImg(){
-    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
-    var responseJSON = await response.json();
-
-    var datetime = responseJSON.datetime;
-    var hour = datetime.slice(11,13);
-    
-    if(hour>=06 && hour<=19){
+    var respones = await fetch("http://worldtimeapi.org/api/timezone/Asia/Tokyo");
+    var reponesJson = await respones.json();
+    var datetime = reponesJson.datetime;
+    var time = datetime.slice(11,13);
+    console.log(time);
+    if (time >= 06 && time <= 19){
         bg = "sprites/bg.png";
     }
     else{
         bg = "sprites/bg2.jpg";
     }
-
     backgroundImg = loadImage(bg);
     console.log(backgroundImg);
 }
