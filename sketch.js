@@ -91,7 +91,7 @@ function keyPressed(){
        // slingshot.attach(bird.body);
     }
 }
-//async function getBackgroundImg(){
+async function getBackgroundImg(){
     var respones = await fetch("http://worldtimeapi.org/api/timezone/Asia/Tokyo");
     var reponesJson = await respones.json();
     var datetime = reponesJson.datetime;
