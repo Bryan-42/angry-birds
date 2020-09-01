@@ -4,12 +4,16 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
 var engine, world;
-var box1, pig1;
-var backgroundImg,platform;
-var bird, slingShot;
+var box1, pig1,pig3;
+var backgroundImg,backgroundImg2,platform;
+var bird, slingshot;
+
+var gameState = "onSling";
+
+var bg = "sprites/bg.png";
 
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+    getBackgroundImg();
 }
 
 function setup(){
@@ -43,9 +47,12 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImg);
+    if (backgroundImg){
+        getBackgroundImg(backgroundImg);
+    }
     Engine.update(engine);
     //strokeWeight(4);
+    backgroundImg.display();
     box1.display();
     box2.display();
     ground.display();
@@ -64,19 +71,55 @@ function draw(){
     bird.display();
     platform.display();
     //log6.display();
-    slingshot.display();    
-    keyPressed();
+    slingshot.display();
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    if (gameState!=="launched"){
+        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    }
 }
+
+
 function mouseReleased(){
     slingshot.fly();
+    gameState = "launched";
 }
-//if the ASCII value is 32 (space) then the bird should reset and go back to the slingShot
+
 function keyPressed(){
-    if (keyCode === 32){
-        slingshot.attach(bird.body);
+    if(keyCode === 32){
+       // slingshot.attach(bird.body);
     }
+}
+//async function getBackgroundImg(){
+  //  var respones = await fetch("http://worldtimeapi.org/api/timezone/Asia/Tokyo");
+    //var reponesJson = await respones.json();
+    //var datetime = reponesJson.datetime;
+    //var time = datetime.slice(11,13);
+    //console.log(time);
+    //if (time >= 06 && time <= 19){
+      //  bg = "sprites/bg.png";
+    //}
+    //else{
+      //  bg = "sprites/bg2.jpg";
+    //}
+    //backgroundImg = loadImage(bg);
+    //console.log(backgroundImg);
+//}
+async function getBackgroundImg(){
+    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+    var responseJSON = await response.json();
+
+    var datetime = responseJSON.datetime;
+    var hour = datetime.slice(11,13);
+    
+    if(hour>=06 && hour<=19){
+        bg = "sprites/bg.png";
+    }
+    else{
+        bg = "sprites/bg2.jpg";
+    }
+
+    backgroundImg = loadImage(bg);
+    console.log(backgroundImg);
 }

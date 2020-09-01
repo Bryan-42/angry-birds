@@ -13,13 +13,12 @@ class SlingShot{
         this.sling = Constraint.create(options);
         World.add(world, this.sling);
     }
-
-    fly(){
-        this.sling.bodyA = null;
-    }
-    //this gives a common name to the "this" contranit Body
     attach(body){
         this.sling.bodyA = body;
+    }
+    
+    fly(){
+        this.sling.bodyA = null;
     }
 
     display(){
